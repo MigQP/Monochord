@@ -6,6 +6,8 @@ using TMPro;
 
 public class SphereManager : MonoBehaviour
 {
+    public float health;
+
     public PlayerInput _playerInput;
 
     public float speed = 1;
@@ -25,26 +27,29 @@ public class SphereManager : MonoBehaviour
 
     public float dir;
 
-    Tuner tuner;
+    public ScrollManager scroller;
+
+    private Vector3 velocity = Vector3.zero;
     void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
         _playerInput.actions["Move"].performed += ReadInput;
         _playerInput.actions["Move"].canceled += ReadInput;
 
-        tuner = FindObjectOfType<Tuner>();
+
+        scroller = FindObjectOfType<ScrollManager>();
     }
 
     void ReadInput(InputAction.CallbackContext context)
     {
         //Debug.Log(context.ReadValue<Vector2>().x);
-        if(context.ReadValue<Vector2>().x < 0)
+        if (context.ReadValue<Vector2>().x < 0)
         {
             xLeft_isRotating = true;
 
-            //tuner.modification = 0;
+
         }
-        if(context.ReadValue<Vector2>().x == 0)
+        if (context.ReadValue<Vector2>().x == 0)
         {
             xLeft_isRotating = false;
             xRight_isRotating = false;
@@ -55,12 +60,12 @@ public class SphereManager : MonoBehaviour
             xRight_isRotating = true;
         }
 
-       
+
     }
 
     void Update()
     {
-       
+
         textNote.text = note;
 
         if (xLeft_isRotating)
@@ -84,7 +89,7 @@ public class SphereManager : MonoBehaviour
             //Debug.Log(Mathf.Abs(z));
             dir += .01f;
         }
-        
+
         angleSpeed = rb.angularVelocity.z;
         //Debug.Log(Mathf.Abs(z1));
         //Debug.Log(transform.rotation.z);
@@ -115,52 +120,29 @@ public class SphereManager : MonoBehaviour
         {
             note = "G";
         }
-        
+
 
     }
 
-    public void SetRotationInput(Vector3 rotation)
-    {
-        transform.Rotate(rotation, Space.World);
-
-    }
-
-
-    void OldRotate()
-    {
-        // Rotate by certain degreees
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            SetRotationInput(new Vector3(degree, 0, 0));
-        }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            SetRotationInput(new Vector3(-degree, 0, 0));
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            SetRotationInput(new Vector3(0, 0, degree));
-       
-        }
-
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            SetRotationInput(new Vector3(0, 0, -degree));
-        }
-    }
 
     public float AlphaFromRotation()
     {
         return angleSpeed / maxAngleSpeed;
     }
-    
+
     public void DoTorque()
     {
-        Vector3 rotationAxis = transform.forward * speed;
+        if (GameManager.instance.isGameOver)
+            return;
+        Vector3 rotationAxis = transform.forward * (speed * 2);
         rb.AddTorque(rotationAxis);
         rb.isKinematic = false;
+        if (health > 0)
+        {
+            health -= 10;
+        }
+        scroller.MoveLeft(scroller.bgPivot);
     }
+
+
 }

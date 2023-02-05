@@ -35,7 +35,7 @@ public class Tuner : MonoBehaviour
         transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, i + modification);
         
 
-        Debug.Log(Mathf.Clamp01(i));
+        //Debug.Log(Mathf.Clamp01(i));
 
         
     }

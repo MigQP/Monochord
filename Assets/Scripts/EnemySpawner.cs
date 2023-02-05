@@ -14,6 +14,9 @@ public class EnemySpawner : MonoBehaviour
 
     public bool canSpawn;
 
+    public Animator angelAnim;
+    public Animator diabloAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,15 +54,20 @@ public class EnemySpawner : MonoBehaviour
                 //SpawnEnemy();
                 canSpawn = true;
             }
+
+            angelAnim.SetBool("isIn", true);
+            diabloAnim.SetBool("isIn", false);
         }
 
         else
         {
             timer = 0.0f;
             canSpawn = false;
+            angelAnim.SetBool("isIn", false);
+            diabloAnim.SetBool("isIn", true);
         }
 
-        Debug.Log(WrapAngle(tuner.transform.localEulerAngles.z));
+        //Debug.Log(WrapAngle(tuner.transform.localEulerAngles.z));
     }
 
     void OnTriggerEnter(Collider other)
