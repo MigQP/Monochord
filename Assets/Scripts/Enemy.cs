@@ -6,11 +6,15 @@ public class Enemy : MonoBehaviour
 {
     public GameObject mainpoint;
     public float speed = 1.0f;
+    Tuner tuner;
 
+    SphereManager sphere;
     // Start is called before the first frame update
     void Start()
     {
         mainpoint = GameObject.FindGameObjectWithTag("MainPoint");
+        tuner = FindObjectOfType<Tuner>();
+        sphere = FindObjectOfType<SphereManager>();
     }
 
     // Update is called once per frame
@@ -24,7 +28,10 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("MainPoint"))
         {
+            tuner.modification = Random.Range(-0.25f, 0.25f);
+            sphere.DoTorque();
             Destroy(this.gameObject);
         }
     }
+
 }
