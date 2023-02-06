@@ -17,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
     public Animator angelAnim;
     public Animator diabloAnim;
 
+    public AudioSource enemyClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -86,5 +88,6 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnEnemy()
     {
         Instantiate(enemy, spawnPoint.position, Quaternion.identity);
+        enemyClip.Play();
     }
 }

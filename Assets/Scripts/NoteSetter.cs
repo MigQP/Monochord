@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NoteSetter : MonoBehaviour
-{   
+{
     // AQUI PODRIA IR EL TRIGGEREO DE CLIP DE AUDIO
+    public AudioSource noteTuned;
 
     public Tuner tuner;
 
@@ -19,5 +20,6 @@ public class NoteSetter : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         tuner.center = center;
+        noteTuned.Play();
     }
 }

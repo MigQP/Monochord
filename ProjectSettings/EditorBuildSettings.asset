@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RotationExample.unity
     guid: 73e08e9d347714d4ea3c0497dbdb5d95
+  - enabled: 1
+    path: Assets/Scenes/CreditsScene.unity
+    guid: ffcee2262a338c94695bebeab3a4e5f1
   m_configObjects: {}

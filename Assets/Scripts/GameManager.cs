@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public TMP_Text gameOverScoreUi;
     public GameObject gameOverScreen;
 
+    public AudioSource brokenChord;
+
     int score;
 
     public bool isGameOver;
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetGameOverScreen()
     {
+        brokenChord.Play();
         gameOverScreen.SetActive(true);
         gameOverScoreUi.text = "Score: " + score.ToString("D9");
     }
